@@ -63,10 +63,12 @@ class HandlerThread(threading.Thread):
 								finalHeader = responseCode + b'\r\n' + contentType + b'\r\n\r\n' + responseBody
 								self.client.send(finalHeader)
 						except Exception as e:
+							print('in exception')
+							finalHeader = b'403 Forbidden\r\n\r\n'
 							if httpType == 'HTTP/1.0':
-								self.client.send(b'HTTP/1.0 403 Forbidden\r\n\r\n')
+								self.client.send(finalHeader)
 							else:
-								self.client.send(b'HTTP/1.1 403 Forbidden\r\n\r\n')
+								self.client.send(finalHeader)
 					else:
 						finalHeader = b'404 Not Found\r\n\r\n'
 						self.client.send(finalHeader)
