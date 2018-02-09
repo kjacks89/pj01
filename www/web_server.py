@@ -28,12 +28,15 @@ class HandlerThread(threading.Thread):
 				self.address = address
 
 		def run(self):
+				"""Server code"""
 				finalHeader = b''
+				#Receives GET request from client 
 				data = client.recv(1024).decode().strip()
 				file_requested = data.split(' ')[1]
 				if file_requested == "/":
 					file_requested += 'index.html'
 				httpType = data.split(' ')[2]
+				#Checks if file type is not supported
 				if file_requested.endswith(".html") == 0 and file_requested.endswith(".txt") == 0 and file_requested.endswith(".png") == 0:
 					finalHeader = b'400 Bad Request'
 					self.client.send(finalHeader)
@@ -42,7 +45,9 @@ class HandlerThread(threading.Thread):
 					responseBody = b''
 					finalHeader = b''
 					path = SERVER_ROOT + file_requested
+					#If file path exists
 					if os.path.isfile(path):
+						#try catch checks for permissions
 						try:
 							f = open(path, 'rb')
 							responseBody = f.read()
@@ -62,20 +67,17 @@ class HandlerThread(threading.Thread):
 								responseCode = b'HTTP/1.1 200 OK'
 								finalHeader = responseCode + b'\r\n' + contentType + b'\r\n\r\n' + responseBody
 								self.client.send(finalHeader)
+						#If not correct permission, then send a 403 message
 						except Exception as e:
-							print('in exception')
 							finalHeader = b'403 Forbidden\r\n\r\n'
-							if httpType == 'HTTP/1.0':
-								self.client.send(finalHeader)
-							else:
-								self.client.send(finalHeader)
+							self.client.send(finalHeader)
 					else:
 						finalHeader = b'404 Not Found\r\n\r\n'
 						self.client.send(finalHeader)
 					#self.client.shutdown(socket.SHUT_RDWR)
 				self.client.close()					
 while True:
-		#Accept Connection
+		#Accept Connection and takes care of concurrency
 		client, address = connection.accept()
 		th = HandlerThread(client, address)
 		th.start()
