@@ -33,8 +33,12 @@ class HandlerThread(threading.Thread):
 				#Receives GET request from client 
 				data = client.recv(1024).decode().strip()
 				file_requested = data.split(' ')[1]
+				defaultCheck = SERVER_ROOT + '/index.html'
 				if file_requested == "/":
-					file_requested += 'index.html'
+					if os.path.isfile(defaultCheck):
+						file_requested += 'index.html'
+					else:
+						file_requested += 'index.txt'
 				httpType = data.split(' ')[2]
 				#Checks if file type is not supported
 				if file_requested.endswith(".html") == 0 and file_requested.endswith(".txt") == 0 and file_requested.endswith(".png") == 0:
