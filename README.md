@@ -3,7 +3,7 @@ Kyle Jackson 811-249-956
 
 ##Description
 
-This is a simple concurrent web server implementing the HTTP/1.1 protocol and uses the low-level socket networking interface.
+This is a simple concurrent web server implementing the HTTP/1.1 protocol and uses the Python module socket, which is a low-level networking interface.
 
 ##Instructions for grader
 
