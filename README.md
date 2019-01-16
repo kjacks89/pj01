@@ -5,7 +5,8 @@ Kyle Jackson 811-249-956
 
 This is a simple concurrent server implementing the HTTP/1.1 protocol and uses the low-level socket networking interface.
 
-##Instructions
+##Instructions for grader
+
 To run the program, go into my cs4760 directory and ssh into a cluster node 
 (e.g. vcf0 or vcf3).
 
@@ -20,7 +21,4 @@ the following command:
 telnet <cluster> 47656
 The 47656 is my port number used in the knock_knock_server.py class. Do not 
 include the greater than/less than symbols in the above command, just type the
-actual cluster name.
-
-##Attribution
-~            
+actual cluster name. 
