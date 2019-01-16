@@ -2,6 +2,7 @@
 Kyle Jackson 811-249-956
 
 ##Description
+This is a simple concurrent server implementing the HTTP/1.1 protocol and uses the low-level socket networking interface.
 
 ##Instructions
 To run the program, go into my cs4760 directory and ssh into a cluster node 
