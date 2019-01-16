@@ -1,4 +1,4 @@
-#CS 4760 pj01
+#CS Networks 4760 pj01
 Kyle Jackson 811-249-956
 
 ##Description
